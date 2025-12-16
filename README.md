@@ -32,7 +32,7 @@ The application supports real-world use cases like normal AI chat, context-aware
 ---
 
 ## 📁 Project Structure
-
+```bash
 multi-modal-qna-chatbot/
 │
 ├── Home.py                  # Main application entry
@@ -43,6 +43,57 @@ multi-modal-qna-chatbot/
 ├── assets/                  # Sample SQL database (Chinook)
 ├── requirements.txt
 └── .streamlit/
+```
+---
+## 🤖 AI Providers
+
+The chatbot is designed with **multi-provider AI support**, allowing users to switch between different large language models at runtime without changing the application logic.
+
+### 🔹 OpenAI (Cloud)
+- Requires an API key  
+- Supports models like **GPT-3.5**, **GPT-4**, and **GPT-4o**  
+- Strong reasoning and context handling  
+- Best suited for production-grade conversations and complex queries  
+
+### ⚡ Groq (Cloud)
+- Requires an API key (free tier available)  
+- Ultra-fast inference with low latency  
+- Ideal for real-time responses and SQL generation  
+- Recommended default provider for speed  
+
+### 🌐 Google Gemini (Cloud)
+- Requires an API key  
+- Supports **Gemini Pro** and **Gemini 1.5** models  
+- Good multimodal and analytical capabilities  
+
+### 🧠 Anthropic Claude (Cloud)
+- Requires an API key  
+- Known for safer responses and strong reasoning  
+- Useful for long-form and structured explanations  
+
+### 🦙 Ollama (Local)
+- Runs entirely on the local machine  
+- No API key required  
+- Supports models like **TinyLlama**, **Llama 3**, **Mistral**  
+- Ideal for offline usage, testing, and privacy-focused workflows  
+
+---
+
+## 🎨 Customization & Controls
+
+### 🌡️ Temperature Control
+The creativity of responses can be adjusted using the temperature parameter:
+
+- **0.0** → Highly precise and deterministic  
+- **0.7** → Balanced and natural conversations (default)  
+- **1.0** → More creative and diverse outputs  
+
+### 🧩 Model Selection
+- Choose different models within the same provider  
+- Switch between providers in real time from the sidebar  
+- No application restart required  
+
+This flexibility allows users to experiment with multiple AI models and select the best one for their specific use case.
 
 ---
 
@@ -85,11 +136,11 @@ GOOGLE_API_KEY = "your_google_key"
 ANTHROPIC_API_KEY = "your_anthropic_key"
 TAVILY_API_KEY = "your_tavily_key"
 ```
----
-
 ## 🚀 Running the Application
 
 After cloning the repository and installing dependencies, the application can be started using:
 
 ```bash
 streamlit run Home.py
+```
+---
