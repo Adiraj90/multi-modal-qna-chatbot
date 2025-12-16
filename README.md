@@ -106,7 +106,7 @@ git clone https://github.com/YOUR_USERNAME/multi-modal-qna-chatbot.git
 cd multi-modal-qna-chatbot
 ```
 
-## 2️⃣ Create Virtual Environment
+### 2️⃣ Create Virtual Environment
 
 macOS / Linux
 
@@ -119,12 +119,12 @@ Windows
 python -m venv venv
 venv\Scripts\activate
 ```
-## 3️⃣ Install Dependencies
+### 3️⃣ Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## ✅ Create secrets.toml
+### ✅ Create secrets.toml
 
 Create the following file: .streamlit/secrets.toml
 
@@ -136,7 +136,7 @@ GOOGLE_API_KEY = "your_google_key"
 ANTHROPIC_API_KEY = "your_anthropic_key"
 TAVILY_API_KEY = "your_tavily_key"
 ```
-## 🚀 Running the Application
+### 🚀 Running the Application
 
 After cloning the repository and installing dependencies, the application can be started using:
 
@@ -144,3 +144,49 @@ After cloning the repository and installing dependencies, the application can be
 streamlit run Home.py
 ```
 ---
+
+## 💡 Use Cases
+
+- 🔍 Ask questions across different AI models from a single interface  
+- 📊 Query SQL databases without writing SQL manually  
+- 📄 Extract insights from PDFs and text documents  
+- 🌐 Analyze website content using AI  
+- 🧪 Compare responses from multiple LLM providers  
+- 🦙 Run AI locally for privacy-sensitive or offline workflows
+
+---
+
+## 🔐 Security & Sensitive Files
+
+For security reasons, the following files **must not be pushed to GitHub**:
+
+```text
+.streamlit/secrets.toml
+```
+---
+
+### 3️⃣ **Why Multi-Provider Design (This Is Your Differentiator)**  
+This is the **most important part for interviews**.
+
+Add this section near the top (after Intro or Features):
+
+```markdown
+## 🔁 Why Multi-AI Provider Architecture?
+
+Most chatbots are tightly coupled to a single AI provider.  
+This project is designed differently.
+
+- Avoids vendor lock-in  
+- Allows real-time provider switching  
+- Enables cost and performance comparison  
+- Improves reliability if one provider is unavailable  
+- Supports both cloud and local AI models  
+
+This architecture makes the chatbot flexible, future-proof, and production-ready.
+```
+
+## 👨‍💻 Author
+
+**Aditya Raj**  
+Computer Engineering Student  
+Interests: Generative AI, LangChain, Applied AI Systems
