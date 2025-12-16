@@ -85,3 +85,11 @@ GOOGLE_API_KEY = "your_google_key"
 ANTHROPIC_API_KEY = "your_anthropic_key"
 TAVILY_API_KEY = "your_tavily_key"
 ```
+---
+
+## 🚀 Running the Application
+
+After cloning the repository and installing dependencies, the application can be started using:
+
+```bash
+streamlit run Home.py
