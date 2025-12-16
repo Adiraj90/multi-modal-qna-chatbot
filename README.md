@@ -183,14 +183,12 @@ For security reasons, the following files **must not be pushed to GitHub**:
 ```
 ---
 
-### 3️⃣ **Why Multi-Provider Design (This Is Your Differentiator)**  
+### 3️⃣ **Why Multi-Provider Design**  
 This is the **most important part for interviews**.
 
 Add this section near the top (after Intro or Features):
 
 ```markdown
-## 🔁 Why Multi-AI Provider Architecture?
-
 Most chatbots are tightly coupled to a single AI provider.  
 This project is designed differently.
 
