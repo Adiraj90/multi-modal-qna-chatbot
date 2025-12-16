@@ -34,15 +34,33 @@ The application supports real-world use cases like normal AI chat, context-aware
 ## 📁 Project Structure
 ```bash
 multi-modal-qna-chatbot/
-│
-├── Home.py                  # Main application entry
-├── pages/                   # All chatbot feature pages
-├── llm_providers.py         # Multi-AI provider handling
-├── chat_utils.py            # Chat memory & session handling
-├── streaming.py             # Streaming AI responses
-├── assets/                  # Sample SQL database (Chinook)
+.
+├── __init__.py
+├── __pycache__
+├── .devcontainer
+│   └── devcontainer.json
+├── .DS_Store
+├── .gitignore
+├── .streamlit
+│   ├── config.toml
+│   └── secrets.toml
+├── assets
+│   └── Chinook.db
+├── chat_utils.py
+├── download_chinook.py
+├── Home.py
+├── llm_providers.py
+├── pages
+│   ├── 1_🤖 Basic Chatbot.py
+│   ├── 2_🧠 Context-Aware Chatbot.py
+│   ├── 3_🌐 Internet-Enabled Chatbot.py
+│   ├── 4_📄 Chat with Your Documents.py
+│   ├── 5_🗄️ Chat with SQL Database.py
+│   └── 6_🌍 Chat with Websites.py
+├── pages_shared.py
 ├── requirements.txt
-└── .streamlit/
+├── streaming.py
+└── tmp
 ```
 ---
 ## 🤖 AI Providers
