@@ -68,12 +68,12 @@ Windows
 python -m venv venv
 venv\Scripts\activate
 ```
-3️⃣ Install Dependencies
+## 3️⃣ Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-✅ Create secrets.toml
+## ✅ Create secrets.toml
 
 Create the following file: .streamlit/secrets.toml
 
