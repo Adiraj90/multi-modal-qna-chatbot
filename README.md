@@ -35,21 +35,14 @@ The application supports real-world use cases like normal AI chat, context-aware
 ```bash
 multi-modal-qna-chatbot/
 |
-├── __init__.py
 ├── __pycache__
 ├── .devcontainer
 │   └── devcontainer.json
-├── .DS_Store
-├── .gitignore
 ├── .streamlit
 │   ├── config.toml
 │   └── secrets.toml
 ├── assets
-│   └── Chinook.db
-├── chat_utils.py
-├── download_chinook.py
-├── Home.py
-├── llm_providers.py
+│   └── Chinook.db 
 ├── pages
 │   ├── 1_🤖 Basic Chatbot.py
 │   ├── 2_🧠 Context-Aware Chatbot.py
@@ -57,9 +50,14 @@ multi-modal-qna-chatbot/
 │   ├── 4_📄 Chat with Your Documents.py
 │   ├── 5_🗄️ Chat with SQL Database.py
 │   └── 6_🌍 Chat with Websites.py
+├── Home.py
+├── __init__.py
+├── chat_utils.py
+├── llm_providers.py
 ├── pages_shared.py
 ├── requirements.txt
 ├── streaming.py
+├── download_chinook.py
 └── tmp
 ```
 ---
