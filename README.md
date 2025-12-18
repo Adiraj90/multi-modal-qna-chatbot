@@ -34,7 +34,7 @@ The application supports real-world use cases like normal AI chat, context-aware
 ## 📁 Project Structure
 ```bash
 multi-modal-qna-chatbot/
-.
+|
 ├── __init__.py
 ├── __pycache__
 ├── .devcontainer
