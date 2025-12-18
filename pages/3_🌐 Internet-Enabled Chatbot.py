@@ -158,6 +158,8 @@ st.markdown("""
             padding: 1rem !important;
             margin: 0.5rem 0 !important;
             border: 1px solid rgba(255, 255, 255, 0.05) !important;
+            overflow-x: auto !important;
+            backdrop-filter: blur(10px) !important;
         }
         
         /* ✨ Warning/Info/Success colors */
@@ -222,6 +224,50 @@ st.markdown("""
         
         .stSlider > div > div > div > div {
             background: #7df9ff !important;
+        }
+            
+            
+        @media screen and (max-width: 360px),
+               screen and (max-width: 767px),
+               screen and (min-width: 768px) and (max-width: 991px) {
+            
+            div[data-testid="stChatMessageAvatarAssistant"] {
+              display: none !important;
+            }
+            
+            div[data-testid="stChatMessageContent"] {
+              margin-left: 0 !important;
+              padding-left: 0 !important;
+            }
+        }
+            
+        @media screen and (max-width: 767px) {
+            .stBottom .st-emotion-cache-uomg8d {
+                background: transparent !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                width: 100% !important;
+                min-width: 100% !important;
+                left: 0 !important;
+                margin: 0 !important;
+                bottom: 0 !important;
+                padding: 0.5rem !important;
+                transform: none !important;
+            }
+            .st-emotion-cache-6shykm {
+                padding-bottom: 1.5rem !important;
+            }
+            .st-emotion-cache-1cei9z1 { 
+                padding-top: 3rem !important;
+            }
+            
+        }
+        
+        @media screen and (max-width: 360px) {
+            .stBottom .st-emotion-cache-uomg8d {
+                padding: 0.3rem !important;
+                font-size: 0.9rem !important;
+            }
         }
     </style>
 """, unsafe_allow_html=True)

@@ -22,10 +22,10 @@ st.set_page_config(
 )
 
 
-# ---------- Custom Styling (MATCHING HOMEPAGE) ----------
+# ---------- Custom Styling ----------
 st.markdown("""
     <style>
-        /* 🌌 Modern Dark Theme with Gradient - EXACT SAME AS HOMEPAGE */
+        /* 🌌 Modern Dark Theme with Gradient */
         .stApp {
             background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
             color: #FFFFFF;
@@ -59,19 +59,8 @@ st.markdown("""
             color: #ff6b6b !important;
             backdrop-filter: blur(10px) !important;
         }
-        
-        /* 💡 Info message styling - UPDATED COLORS */
-        .info-message {
-            background: rgba(125, 249, 255, 0.15) !important;
-            border: 1px solid rgba(125, 249, 255, 0.3) !important;
-            border-radius: 12px !important;
-            padding: 1rem !important;
-            margin: 1rem 0 !important;
-            color: #7df9ff !important;
-            backdrop-filter: blur(10px) !important;
-        }
-        
-        /* 🚀 Provider status - UPDATED COLORS */
+            
+        /* 🚀 Provider status */
         .provider-status {
             padding: 0.8rem 1.2rem !important;
             border-radius: 12px !important;
@@ -92,7 +81,7 @@ st.markdown("""
             color: #ff6b6b !important;
         }
         
-        /* 🎨 Button styling - MATCHING HOMEPAGE */
+        /* 🎨 Button styling */
         .stButton > button {
             background: linear-gradient(135deg, #7df9ff 0%, #9370db 50%, #00ffff 100%) !important;
             color: #000000 !important;
@@ -124,13 +113,15 @@ st.markdown("""
             color: #d0d0ff !important;
         }
         
-        /* 📱 Chat message styling */
+        /* 📱 Chat message styling - FIXED for overflow */
         .stChatMessage {
             background: rgba(255, 255, 255, 0.03) !important;
             border-radius: 15px !important;
             padding: 1rem !important;
             margin: 0.5rem 0 !important;
             border: 1px solid rgba(255, 255, 255, 0.05) !important;
+            overflow-x: auto !important;
+            backdrop-filter: blur(10px) !important;
         }
         
         /* ✨ Warning/Info/Success colors */
@@ -162,10 +153,6 @@ st.markdown("""
             padding: 1.5rem !important;
             margin: 0.5rem !important;
             backdrop-filter: blur(10px) !important;
-        }  
-        
-        .st-emotion-cache-1cei9z1{
-            padding-top: 2rem !important;
         }
         
         .stBottom .st-emotion-cache-uomg8d {
@@ -179,6 +166,50 @@ st.markdown("""
             margin: auto !important;
             bottom: 16px;
         }
+            
+        @media screen and (max-width: 360px),
+               screen and (max-width: 767px),
+               screen and (min-width: 768px) and (max-width: 991px) {
+            
+            div[data-testid="stChatMessageAvatarAssistant"] {
+              display: none !important;
+            }
+            
+            div[data-testid="stChatMessageContent"] {
+              margin-left: 0 !important;
+              padding-left: 0 !important;
+            }
+        }
+            
+        @media screen and (max-width: 767px) {
+            .stBottom .st-emotion-cache-uomg8d {
+                background: transparent !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                width: 100% !important;
+                min-width: 100% !important;
+                left: 0 !important;
+                margin: 0 !important;
+                bottom: 0 !important;
+                padding: 0.5rem !important;
+                transform: none !important;
+            }
+            .st-emotion-cache-6shykm {
+                padding-bottom: 1.5rem !important;
+            }
+            .st-emotion-cache-1cei9z1 { 
+                padding-top: 3rem !important;
+            }
+            
+        }
+        
+        @media screen and (max-width: 360px) {
+            .stBottom .st-emotion-cache-uomg8d {
+                padding: 0.3rem !important;
+                font-size: 0.9rem !important;
+            }
+        }
+           
     </style>
 """, unsafe_allow_html=True)
 
@@ -418,12 +449,19 @@ def main():
     initialize_session()
     llm = setup_sidebar()
     
-    st.markdown("""
-    <div style="text-align: center; margin-bottom: 1rem;">
-        <h1 style="font-size: 3rem; font-weight: 900; background: linear-gradient(90deg, #7df9ff 0%, #9370db 50%, #00ffff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">🤖 Basic Chatbot</h1>
-        <p style="color: #b0b0ff; font-size: 1.2rem; font-weight: 300;">Chat with AI using multiple providers</p>
-    </div>
-    """, unsafe_allow_html=True)
+    # Use container to control layout better
+    container = st.container()
+    
+    with container:
+        # Add extra margin at the top of the hero section
+        st.markdown('<div style="margin-top: 1.5rem;"></div>', unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div style="text-align: center; margin-bottom: 1rem;">
+            <h1 style="font-size: 3rem; font-weight: 900; background: linear-gradient(90deg, #7df9ff 0%, #9370db 50%, #00ffff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">🤖 Basic Chatbot</h1>
+            <p style="color: #b0b0ff; font-size: 1.2rem; font-weight: 300;">Chat with AI using multiple providers</p>
+        </div>
+        """, unsafe_allow_html=True)
     
     # Display current provider status
     current_provider = st.session_state.get("current_provider")
@@ -437,15 +475,10 @@ def main():
         st.markdown(f'<div class="error-message">{st.session_state.last_error}</div>', unsafe_allow_html=True)
         display_error_help(st.session_state.last_error, current_provider)
     
-    # Chat container
-    # st.markdown('<div class="chat-container">', unsafe_allow_html=True)
-    
     # Display chat messages
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.write(message["content"])
-    
-    st.markdown('</div>', unsafe_allow_html=True)
     
     # Chat input
     if st.session_state.get("llm_instance"):
@@ -491,8 +524,10 @@ def main():
         # Provider not configured - show help
         st.warning("Please configure an AI provider in the sidebar to start chatting.")
         
-        # Show provider options - UPDATED STYLING
-        st.markdown('<div style="margin: 2rem 0;">', unsafe_allow_html=True)
+        # Add some space before provider cards
+        st.markdown('<div style="margin-top: 1.5rem;"></div>', unsafe_allow_html=True)
+        
+        # Show provider options with responsive columns
         col1, col2, col3 = st.columns(3)
         
         with col1:
@@ -537,7 +572,8 @@ def main():
             </div>
             """, unsafe_allow_html=True)
         
-        st.markdown('</div>', unsafe_allow_html=True)
+        # Add some space after provider cards
+        st.markdown('<div style="margin-top: 1.5rem;"></div>', unsafe_allow_html=True)
         
         # Installation instructions
         with st.expander("📦 Installation Help", expanded=True):

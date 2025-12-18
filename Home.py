@@ -52,13 +52,11 @@ st.markdown("""
             border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             max-width: 1200px;
-        }
-        .st-emotion-cache-zy6yx3 {
-            padding: 5rem 5rem 7rem !important;
+            width: 90%; /* Flexible width */
         }
         
         .main-title {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem); /* Responsive font size */
             font-weight: 900;
             background: linear-gradient(90deg, #7df9ff 0%, #9370db 50%, #00ffff 100%);
             -webkit-background-clip: text;
@@ -69,7 +67,7 @@ st.markdown("""
         }
         
         .sub-title {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 2vw, 1.3rem); /* Responsive font size */
             color: #b0b0ff;
             margin-bottom: 1.5rem;
             font-weight: 300;
@@ -82,30 +80,30 @@ st.markdown("""
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 1.5rem;
-            height: 240px; /* Fixed height */
+            min-height: 240px; /* Changed to min-height */
             backdrop-filter: blur(10px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            margin-bottom: 1.5rem; /* Space between cards */
+            margin-bottom: 1.5rem;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
             border-color: rgba(125, 249, 255, 0.5);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            z-index: 10; /* Ensure hovered card stays above others */
+            z-index: 10;
         }
         
         .feature-card h4 {
             color: #7df9ff;
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 1.5vw, 1.3rem); /* Responsive font size */
             margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
             min-height: 3rem;
         }
         
@@ -113,23 +111,23 @@ st.markdown("""
             color: #d0d0ff;
             line-height: 1.1;
             margin-bottom: 1rem;
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 1vw, 0.95rem); /* Responsive font size */
             flex-grow: 1;
         }
         
         .api-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-top: auto; /* Push to bottom */
+            gap: 0.3rem;
+            margin-top: auto;
         }
         
         .api-tag {
             background: rgba(125, 249, 255, 0.15);
             color: #7df9ff;
-            padding: 3px 10px;
+            padding: 0.2rem 0.6rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: clamp(0.7rem, 0.9vw, 0.8rem); /* Responsive font size */
             border: 1px solid rgba(125, 249, 255, 0.3);
         }
         
@@ -139,7 +137,7 @@ st.markdown("""
             border: 1px solid rgba(147, 112, 219, 0.3);
             border-radius: 20px;
             padding: 1.5rem;
-            height: 240px; /* Fixed height for all guide cards */
+            min-height: 240px; /* Changed to min-height */
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
@@ -155,24 +153,24 @@ st.markdown("""
         }
         
         .guide-step-number {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2rem); /* Responsive font size */
             color: #7df9ff;
             margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
         }
         
         .guide-card h4 {
             color: #7df9ff;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 1.3vw, 1.2rem); /* Responsive font size */
             margin-bottom: 0.8rem;
             min-height: 2.8rem;
         }
         
         .guide-card-content {
             color: #d0d0ff;
-            font-size: 0.9rem;
+            font-size: clamp(0.85rem, 1vw, 0.9rem); /* Responsive font size */
             line-height: 1.4;
             flex-grow: 1;
         }
@@ -185,7 +183,7 @@ st.markdown("""
             text-align: center;
             transition: transform 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            height: 220px;
+            min-height: 220px; /* Changed to min-height */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -198,29 +196,8 @@ st.markdown("""
         }
         
         .api-icon {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2rem); /* Responsive font size */
             margin-bottom: 0.8rem;
-        }
-        
-        /* 📱 Responsive Design */
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.2rem;
-            }
-            
-            .hero-section {
-                padding: 1.5rem 1rem;
-            }
-            
-            .api-card {
-                height: 180px;
-                padding: 1.2rem;
-            }
-            
-            .feature-card, .guide-card {
-                height: auto;
-                min-height: 200px;
-            }
         }
         
         /* ✨ Section Headers */
@@ -231,13 +208,13 @@ st.markdown("""
         
         .section-header h2 {
             color: #7df9ff;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 2.5vw, 2rem); /* Responsive font size */
             margin-bottom: 0.8rem;
         }
         
         .section-header p {
             color: #b0b0ff;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 1.3vw, 1.1rem); /* Responsive font size */
             max-width: 800px;
             margin: 0 auto;
         }
@@ -250,15 +227,439 @@ st.markdown("""
             margin-bottom: 2rem;
         }
         
-        @media (max-width: 992px) {
+        /* =========================================== */
+        /* 📱 RESPONSIVE STYLES - FLEXIBLE UNITS */
+        /* =========================================== */
+        
+        /* Desktop (min-width: 1200px) - Full sidebar, full layout */
+        @media screen and (min-width: 1200px) {
+            /* Desktop styles remain as before */
             .features-container {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         
-        @media (max-width: 768px) {
+        /* Large Tablets and Small Desktops (992px to 1199px) */
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            .hero-section {
+                width: 85%;
+                padding: 2.5rem 1.5rem;
+            }
+            
+            .features-container {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            }
+            
+            /* Adjust guide cards - 3 columns */
+            div[data-testid="column"]:has(.guide-card) {
+                flex: 0 0 33.333% !important;
+                max-width: 33.333% !important;
+            }
+            
+            .guide-card {
+                padding: 1.2rem;
+                min-height: 240px;
+            }
+            
+            .feature-card {
+                padding: 1.2rem;
+                min-height: 240px;
+            }
+            
+            .api-card {
+                padding: 1.2rem;
+                min-height: 220px;
+            }
+        }
+        
+        /* Medium Tablets (768px to 991px) - iPad, iPad Mini, Android Tablets */
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+            .hero-section {
+                width: 90%;
+                padding: 2rem 1.2rem;
+                margin: 0.5rem auto;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .sub-title {
+                font-size: 1.1rem;
+            }
+            
+            .features-container {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns */
+                gap: 1rem;
+            }
+            
+            /* Guide cards - 3 columns on medium tablets when sidebar is hidden */
+            div[data-testid="column"]:has(.guide-card) {
+                flex: 0 0 33.333% !important;
+                max-width: 33.333% !important;
+            }
+            
+            .guide-card {
+                padding: 1.5rem;
+                min-height: 240px;
+            }
+            
+            .guide-step-number {
+                font-size: 1.6rem;
+            }
+            
+            .guide-card h4 {
+                font-size: 1.2rem;
+            }
+            
+            .guide-card-content {
+                font-size: 0.95rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+                min-height: 240px;
+            }
+            
+            .feature-card h4 {
+                font-size: 1.3rem;
+            }
+            
+            .feature-card p {
+                font-size: 1rem;
+            }
+            
+            .api-card {
+                padding: 1.5rem;
+                min-height: 220px;
+            }
+            
+            .api-icon {
+                font-size: 1.8rem;
+            }
+            
+            .api-card h4 {
+                font-size: 1.2rem;
+            }
+            
+            .api-card p {
+                font-size: 1rem;
+            }
+            
+            /* Section headers */
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-header p {
+                font-size: 1.1rem;
+            }
+            
+            /* Quick links - flexible layout */
+            div[style*="text-align: center; margin: 2rem 0;"] {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem;
+            }
+            
+            div[style*="text-align: center; margin: 2rem 0;"] a {
+                margin: 0 !important;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            /* 🔥 PROPER FLEX-WRAP SOLUTION FOR IPAD WITH SIDEBAR */
+            /* When sidebar is visible, we need to create proper flex containers */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div {
+                /* Ensure the main container allows proper wrapping */
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow-x: hidden !important;
+            }
+            
+            /* Create a flex container for the API cards section */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Powered by Leading AI Providers")) + div {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                align-items: stretch !important;
+                gap: 1rem !important;
+                width: 100% !important;
+            }
+            
+            /* Style for API cards in flex container */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Powered by Leading AI Providers")) + div > div {
+                flex: 1 0 45% !important; /* 2 cards per row */
+                max-width: 45% !important;
+                min-width: 250px !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            /* Create a flex container for the Guide cards section */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Quick Start Guide")) + div {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                align-items: stretch !important;
+                gap: 1rem !important;
+                width: 100% !important;
+            }
+            
+            /* Style for Guide cards in flex container - 3 cards per row when possible */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Quick Start Guide")) + div > div {
+                flex: 1 0 30% !important; /* 3 cards per row */
+                max-width: 30% !important;
+                min-width: 220px !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            /* Create a flex container for the Feature cards section */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Advanced Features")) + div {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                align-items: stretch !important;
+                gap: 1rem !important;
+                width: 100% !important;
+            }
+            
+            /* Style for Feature cards in flex container - 2 cards per row */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Advanced Features")) + div > div {
+                flex: 1 0 45% !important; /* 2 cards per row */
+                max-width: 45% !important;
+                min-width: 280px !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            /* Fix the specific feature card grid container */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .features-container {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 1rem !important;
+            }
+            
+            /* Make sure all cards maintain their size */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .guide-card,
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .feature-card,
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .api-card {
+                min-height: 240px !important;
+                height: 100% !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* Ensure content fits within cards */
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .guide-card h4,
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .feature-card h4 {
+                font-size: 1.1rem !important;
+                line-height: 1.3;
+                word-break: break-word;
+            }
+            
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .guide-card-content,
+            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .feature-card p {
+                font-size: 0.9rem !important;
+                line-height: 1.4;
+            }
+        }
+        
+        /* Small Tablets and Large Phones (576px to 767px) */
+        @media screen and (min-width: 576px) and (max-width: 767px) {
+            .hero-section {
+                width: 95%;
+                padding: 1.8rem 1rem;
+                margin: 0.5rem auto;
+                border-radius: 20px;
+            }
+            
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .sub-title {
+                font-size: 1rem;
+            }
+            
+            .features-container {
+                grid-template-columns: 1fr; /* 1 column */
+                gap: 1rem;
+            }
+            
+            /* Guide cards - 2 columns on small tablets */
+            div[data-testid="column"]:has(.guide-card) {
+                flex: 0 0 50% !important;
+                max-width: 50% !important;
+            }
+            
+            .guide-card {
+                padding: 1.5rem;
+                min-height: 240px;
+            }
+            
+            .guide-step-number {
+                font-size: 1.8rem;
+            }
+            
+            .guide-card h4 {
+                font-size: 1.2rem;
+                min-height: auto;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+                min-height: 240px;
+            }
+            
+            .feature-card h4 {
+                font-size: 1.2rem;
+            }
+            
+            .feature-card p {
+                font-size: 1rem;
+            }
+            
+            .api-card {
+                padding: 1.5rem;
+                min-height: 220px;
+                margin-bottom: 0.8rem;
+            }
+            
+            /* Section headers */
+            .section-header {
+                margin: 2rem 0 1rem 0;
+            }
+            
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+            
+            .section-header p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Mobile Phones (max-width: 575px) */
+        @media screen and (max-width: 575px) {
+            .hero-section {
+                width: 95%;
+                padding: 1.5rem 0.8rem;
+                margin: 0.5rem auto;
+                border-radius: 15px;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .sub-title {
+                font-size: 0.9rem;
+                padding: 0 0.5rem;
+            }
+            
             .features-container {
                 grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            /* Guide cards - 1 column on mobile */
+            div[data-testid="column"]:has(.guide-card) {
+                flex: 0 0 100% !important;
+                max-width: 100% !important;
+                margin-bottom: 0.8rem;
+            }
+            
+            .guide-card {
+                padding: 1.5rem;
+                min-height: 240px;
+            }
+            
+            .guide-step-number {
+                font-size: 1.8rem;
+            }
+            
+            .guide-card h4 {
+                font-size: 1.2rem;
+            }
+            
+            .guide-card-content {
+                font-size: 1rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+                min-height: 240px;
+            }
+            
+            .feature-card h4 {
+                font-size: 1.2rem;
+            }
+            
+            .feature-card p {
+                font-size: 1rem;
+            }
+            
+            .api-card {
+                padding: 1.5rem;
+                min-height: 220px;
+                margin-bottom: 0.8rem;
+            }
+            
+            .api-icon {
+                font-size: 1.8rem;
+            }
+            
+            .api-tag {
+                font-size: 0.8rem;
+                padding: 0.15rem 0.5rem;
+            }
+            
+            /* Section headers */
+            .section-header {
+                margin: 1.5rem 0 1rem 0;
+            }
+            
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .section-header p {
+                font-size: 1rem;
+            }
+            
+            /* Quick links - stack vertically */
+            div[style*="text-align: center; margin: 2rem 0;"] a {
+                display: block;
+                margin: 0.5rem 0 !important;
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Very Small Phones (max-width: 360px) */
+        @media screen and (max-width: 360px) {
+            .hero-section {
+                padding: 1.2rem 0.6rem;
+            }
+            
+            .main-title {
+                font-size: 1.5rem;
+            }
+            
+            .sub-title {
+                font-size: 0.85rem;
+            }
+            
+            .guide-card,
+            .feature-card,
+            .api-card {
+                padding: 1.2rem;
+                min-height: 220px;
+            }
+            
+            .api-tag {
+                font-size: 0.7rem;
+                padding: 0.1rem 0.4rem;
             }
         }
     </style>
@@ -288,10 +689,10 @@ with col1:
     st.markdown("""
     <div class="api-card">
         <div class="api-icon">🔷</div>
-        <h4 style="color: #7df9ff; margin-bottom: 0.5rem; font-size: 1.2rem;">OpenAI</h4>
-        <p style="color: #d0d0ff; font-size: 0.85rem; margin-bottom: 0.5rem;">GPT-4, GPT-3.5 Turbo</p>
+        <h4 style="color: #7df9ff; margin-bottom: 0.5rem;">OpenAI</h4>
+        <p style="color: #d0d0ff; margin-bottom: 0.5rem;">GPT-4, GPT-3.5 Turbo</p>
         <div style="padding: 6px 14px; background: rgba(25, 25, 112, 0.3); border-radius: 20px;">
-            <small style="color: #7df9ff; font-size: 0.8rem;">Premium API</small>
+            <small style="color: #7df9ff;">Premium API</small>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -300,10 +701,10 @@ with col2:
     st.markdown("""
     <div class="api-card">
         <div class="api-icon">🌀</div>
-        <h4 style="color: #4285f4; margin-bottom: 0.5rem; font-size: 1.2rem;">Google Gemini</h4>
-        <p style="color: #d0d0ff; font-size: 0.85rem; margin-bottom: 0.5rem;">Gemini Pro & Flash</p>
+        <h4 style="color: #4285f4; margin-bottom: 0.5rem;">Google Gemini</h4>
+        <p style="color: #d0d0ff; margin-bottom: 0.5rem;">Gemini Pro & Flash</p>
         <div style="padding: 6px 14px; background: rgba(66, 133, 244, 0.1); border-radius: 20px;">
-            <small style="color: #4285f4; font-size: 0.8rem;">Multimodal AI</small>
+            <small style="color: #4285f4;">Multimodal AI</small>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -312,10 +713,10 @@ with col3:
     st.markdown("""
     <div class="api-card">
         <div class="api-icon">⚡</div>
-        <h4 style="color: #00ff00; margin-bottom: 0.5rem; font-size: 1.2rem;">Groq</h4>
-        <p style="color: #d0d0ff; font-size: 0.85rem; margin-bottom: 0.5rem;">Ultra-fast Inference</p>
+        <h4 style="color: #00ff00; margin-bottom: 0.5rem;">Groq</h4>
+        <p style="color: #d0d0ff; margin-bottom: 0.5rem;">Ultra-fast Inference</p>
         <div style="padding: 6px 14px; background: rgba(0, 255, 0, 0.1); border-radius: 20px;">
-            <small style="color: #00ff00; font-size: 0.8rem;">High Speed</small>
+            <small style="color: #00ff00;">High Speed</small>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -328,10 +729,10 @@ with col4:
     st.markdown("""
     <div class="api-card">
         <div class="api-icon">✨</div>
-        <h4 style="color: #ff6b6b; margin-bottom: 0.5rem; font-size: 1.2rem;">Anthropic Claude</h4>
-        <p style="color: #d0d0ff; font-size: 0.85rem; margin-bottom: 0.5rem;">Claude 3 Series</p>
+        <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">Anthropic Claude</h4>
+        <p style="color: #d0d0ff; margin-bottom: 0.5rem;">Claude 3 Series</p>
         <div style="padding: 6px 14px; background: rgba(255, 107, 107, 0.1); border-radius: 20px;">
-            <small style="color: #ff6b6b; font-size: 0.8rem;">Advanced Reasoning</small>
+            <small style="color: #ff6b6b;">Advanced Reasoning</small>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -340,10 +741,10 @@ with col5:
     st.markdown("""
     <div class="api-card">
         <div class="api-icon">🦙</div>
-        <h4 style="color: #ffcc00; margin-bottom: 0.5rem; font-size: 1.2rem;">Ollama Local</h4>
-        <p style="color: #d0d0ff; font-size: 0.85rem; margin-bottom: 0.5rem;">TinyLlama, Llama 3</p>
+        <h4 style="color: #ffcc00; margin-bottom: 0.5rem;">Ollama Local</h4>
+        <p style="color: #d0d0ff; margin-bottom: 0.5rem;">TinyLlama, Llama 3</p>
         <div style="padding: 6px 14px; background: rgba(255, 204, 0, 0.1); border-radius: 20px;">
-            <small style="color: #ffcc00; font-size: 0.8rem;">Private & Free</small>
+            <small style="color: #ffcc00;">Private & Free</small>
         </div>
     </div>
     """, unsafe_allow_html=True)
