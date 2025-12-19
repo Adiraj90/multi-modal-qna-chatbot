@@ -73,6 +73,124 @@ st.markdown("""
             font-weight: 300;
             line-height: 1.5;
         }
+            
+         /* ✨ Section Headers */
+        .section-header {
+            text-align: center;
+            margin: 2.5rem 0 1.5rem 0;
+        }
+        
+        .section-header h2 {
+            color: #7df9ff;
+            font-size: clamp(1.5rem, 2.5vw, 2rem); /* Responsive font size */
+            margin-bottom: 0.8rem;
+        }
+        
+        .section-header p {
+            color: #b0b0ff;
+            font-size: clamp(1rem, 1.3vw, 1.1rem); /* Responsive font size */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+            
+        /* 🏆 API Showcase - Consistent card sizing */
+        .api-cards-main-container,
+        .guide-cards-main-container, 
+        .quick-links-container,
+        .feature-cards-main-container{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+            
+        .api-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 220px; 
+            min-width: 270px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .api-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(125, 249, 255, 0.5);
+        }
+        
+        .api-icon {
+            font-size: clamp(1.5rem, 3vw, 2rem); /* Responsive font size */
+            margin-bottom: 0.8rem;
+        }
+            
+        
+        /* 🔥 Quick Guide Cards - Horizontal Layout */
+        .guide-card {
+            background: linear-gradient(135deg, rgba(147, 112, 219, 0.15), rgba(0, 255, 255, 0.15));
+            border: 1px solid rgba(147, 112, 219, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem;
+            min-width: 180px;
+            width: 180px;
+            min-height: 240px; 
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: rgba(125, 249, 255, 0.5);
+        }
+        
+        .guide-step-number {
+            font-size: clamp(1.5rem, 3vw, 2rem); /* Responsive font size */
+            color: #7df9ff;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .guide-card h4 {
+            color: #7df9ff;
+            font-size: clamp(1rem, 1.3vw, 1.2rem); /* Responsive font size */
+            margin-bottom: 0.8rem;
+            min-height: 2.8rem;
+        }
+        
+        .guide-card-content {
+            color: #d0d0ff;
+            font-size: clamp(0.85rem, 1vw, 0.9rem); /* Responsive font size */
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        
+        .quick-links-container a{
+            background: rgba(125, 249, 255, 0.1);
+            color: #7df9ff;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: clamp(0.8rem, 1vw, 0.9rem); /* Responsive font size */
+            border: 1px solid rgba(125, 249, 255, 0.3);
+            transition: background 0.3s ease;
+            margin: 0.2rem;
+        }
+         
         
         /* 🎨 Feature Cards - Enhanced with fixed sizing */
         .feature-card {
@@ -80,7 +198,9 @@ st.markdown("""
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 1.5rem;
-            min-height: 240px; /* Changed to min-height */
+            min-height: 240px;
+            min-width: 270px;
+            width: 300px;
             backdrop-filter: blur(10px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -130,538 +250,6 @@ st.markdown("""
             font-size: clamp(0.7rem, 0.9vw, 0.8rem); /* Responsive font size */
             border: 1px solid rgba(125, 249, 255, 0.3);
         }
-        
-        /* 🔥 Quick Guide Cards - Horizontal Layout */
-        .guide-card {
-            background: linear-gradient(135deg, rgba(147, 112, 219, 0.15), rgba(0, 255, 255, 0.15));
-            border: 1px solid rgba(147, 112, 219, 0.3);
-            border-radius: 20px;
-            padding: 1.5rem;
-            min-height: 240px; /* Changed to min-height */
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .guide-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border-color: rgba(125, 249, 255, 0.5);
-        }
-        
-        .guide-step-number {
-            font-size: clamp(1.5rem, 3vw, 2rem); /* Responsive font size */
-            color: #7df9ff;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .guide-card h4 {
-            color: #7df9ff;
-            font-size: clamp(1rem, 1.3vw, 1.2rem); /* Responsive font size */
-            margin-bottom: 0.8rem;
-            min-height: 2.8rem;
-        }
-        
-        .guide-card-content {
-            color: #d0d0ff;
-            font-size: clamp(0.85rem, 1vw, 0.9rem); /* Responsive font size */
-            line-height: 1.4;
-            flex-grow: 1;
-        }
-        
-        /* 🏆 API Showcase - Consistent card sizing */
-        .api-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            min-height: 220px; /* Changed to min-height */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .api-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(125, 249, 255, 0.5);
-        }
-        
-        .api-icon {
-            font-size: clamp(1.5rem, 3vw, 2rem); /* Responsive font size */
-            margin-bottom: 0.8rem;
-        }
-        
-        /* ✨ Section Headers */
-        .section-header {
-            text-align: center;
-            margin: 2.5rem 0 1.5rem 0;
-        }
-        
-        .section-header h2 {
-            color: #7df9ff;
-            font-size: clamp(1.5rem, 2.5vw, 2rem); /* Responsive font size */
-            margin-bottom: 0.8rem;
-        }
-        
-        .section-header p {
-            color: #b0b0ff;
-            font-size: clamp(1rem, 1.3vw, 1.1rem); /* Responsive font size */
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        /* 📦 Grid container for feature cards */
-        .features-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        /* =========================================== */
-        /* 📱 RESPONSIVE STYLES - FLEXIBLE UNITS */
-        /* =========================================== */
-        
-        /* Desktop (min-width: 1200px) - Full sidebar, full layout */
-        @media screen and (min-width: 1200px) {
-            /* Desktop styles remain as before */
-            .features-container {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        /* Large Tablets and Small Desktops (992px to 1199px) */
-        @media screen and (min-width: 992px) and (max-width: 1199px) {
-            .hero-section {
-                width: 85%;
-                padding: 2.5rem 1.5rem;
-            }
-            
-            .features-container {
-                grid-template-columns: repeat(2, 1fr); /* 2 columns */
-            }
-            
-            /* Adjust guide cards - 3 columns */
-            div[data-testid="column"]:has(.guide-card) {
-                flex: 0 0 33.333% !important;
-                max-width: 33.333% !important;
-            }
-            
-            .guide-card {
-                padding: 1.2rem;
-                min-height: 240px;
-            }
-            
-            .feature-card {
-                padding: 1.2rem;
-                min-height: 240px;
-            }
-            
-            .api-card {
-                padding: 1.2rem;
-                min-height: 220px;
-            }
-        }
-        
-        /* Medium Tablets (768px to 991px) - iPad, iPad Mini, Android Tablets */
-        @media screen and (min-width: 768px) and (max-width: 991px) {
-            .hero-section {
-                width: 90%;
-                padding: 2rem 1.2rem;
-                margin: 0.5rem auto;
-            }
-            
-            .main-title {
-                font-size: 2.5rem;
-            }
-            
-            .sub-title {
-                font-size: 1.1rem;
-            }
-            
-            .features-container {
-                grid-template-columns: repeat(2, 1fr); /* 2 columns */
-                gap: 1rem;
-            }
-            
-            /* Guide cards - 3 columns on medium tablets when sidebar is hidden */
-            div[data-testid="column"]:has(.guide-card) {
-                flex: 0 0 33.333% !important;
-                max-width: 33.333% !important;
-            }
-            
-            .guide-card {
-                padding: 1.5rem;
-                min-height: 240px;
-            }
-            
-            .guide-step-number {
-                font-size: 1.6rem;
-            }
-            
-            .guide-card h4 {
-                font-size: 1.2rem;
-            }
-            
-            .guide-card-content {
-                font-size: 0.95rem;
-            }
-            
-            .feature-card {
-                padding: 1.5rem;
-                min-height: 240px;
-            }
-            
-            .feature-card h4 {
-                font-size: 1.3rem;
-            }
-            
-            .feature-card p {
-                font-size: 1rem;
-            }
-            
-            .api-card {
-                padding: 1.5rem;
-                min-height: 220px;
-            }
-            
-            .api-icon {
-                font-size: 1.8rem;
-            }
-            
-            .api-card h4 {
-                font-size: 1.2rem;
-            }
-            
-            .api-card p {
-                font-size: 1rem;
-            }
-            
-            /* Section headers */
-            .section-header h2 {
-                font-size: 1.8rem;
-            }
-            
-            .section-header p {
-                font-size: 1.1rem;
-            }
-            
-            /* Quick links - flexible layout */
-            div[style*="text-align: center; margin: 2rem 0;"] {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.8rem;
-            }
-            
-            div[style*="text-align: center; margin: 2rem 0;"] a {
-                margin: 0 !important;
-                padding: 0.4rem 0.8rem;
-                font-size: 0.9rem;
-            }
-            
-            /* 🔥 PROPER FLEX-WRAP SOLUTION FOR IPAD WITH SIDEBAR */
-            /* When sidebar is visible, we need to create proper flex containers */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div {
-                /* Ensure the main container allows proper wrapping */
-                width: 100% !important;
-                max-width: 100% !important;
-                overflow-x: hidden !important;
-            }
-            
-            /* Create a flex container for the API cards section */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Powered by Leading AI Providers")) + div {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-                align-items: stretch !important;
-                gap: 1rem !important;
-                width: 100% !important;
-            }
-            
-            /* Style for API cards in flex container */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Powered by Leading AI Providers")) + div > div {
-                flex: 1 0 45% !important; /* 2 cards per row */
-                max-width: 45% !important;
-                min-width: 250px !important;
-                margin-bottom: 1rem !important;
-            }
-            
-            /* Create a flex container for the Guide cards section */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Quick Start Guide")) + div {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-                align-items: stretch !important;
-                gap: 1rem !important;
-                width: 100% !important;
-            }
-            
-            /* Style for Guide cards in flex container - 3 cards per row when possible */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Quick Start Guide")) + div > div {
-                flex: 1 0 30% !important; /* 3 cards per row */
-                max-width: 30% !important;
-                min-width: 220px !important;
-                margin-bottom: 1rem !important;
-            }
-            
-            /* Create a flex container for the Feature cards section */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Advanced Features")) + div {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-                align-items: stretch !important;
-                gap: 1rem !important;
-                width: 100% !important;
-            }
-            
-            /* Style for Feature cards in flex container - 2 cards per row */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .section-header:has(h2:contains("Advanced Features")) + div > div {
-                flex: 1 0 45% !important; /* 2 cards per row */
-                max-width: 45% !important;
-                min-width: 280px !important;
-                margin-bottom: 1rem !important;
-            }
-            
-            /* Fix the specific feature card grid container */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .features-container {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-                gap: 1rem !important;
-            }
-            
-            /* Make sure all cards maintain their size */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .guide-card,
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .feature-card,
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .api-card {
-                min-height: 240px !important;
-                height: 100% !important;
-                box-sizing: border-box !important;
-            }
-            
-            /* Ensure content fits within cards */
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .guide-card h4,
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .feature-card h4 {
-                font-size: 1.1rem !important;
-                line-height: 1.3;
-                word-break: break-word;
-            }
-            
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .guide-card-content,
-            section[data-testid="stSidebar"][aria-expanded="true"] ~ div .feature-card p {
-                font-size: 0.9rem !important;
-                line-height: 1.4;
-            }
-        }
-        
-        /* Small Tablets and Large Phones (576px to 767px) */
-        @media screen and (min-width: 576px) and (max-width: 767px) {
-            .hero-section {
-                width: 95%;
-                padding: 1.8rem 1rem;
-                margin: 0.5rem auto;
-                border-radius: 20px;
-            }
-            
-            .main-title {
-                font-size: 2rem;
-            }
-            
-            .sub-title {
-                font-size: 1rem;
-            }
-            
-            .features-container {
-                grid-template-columns: 1fr; /* 1 column */
-                gap: 1rem;
-            }
-            
-            /* Guide cards - 2 columns on small tablets */
-            div[data-testid="column"]:has(.guide-card) {
-                flex: 0 0 50% !important;
-                max-width: 50% !important;
-            }
-            
-            .guide-card {
-                padding: 1.5rem;
-                min-height: 240px;
-            }
-            
-            .guide-step-number {
-                font-size: 1.8rem;
-            }
-            
-            .guide-card h4 {
-                font-size: 1.2rem;
-                min-height: auto;
-            }
-            
-            .feature-card {
-                padding: 1.5rem;
-                min-height: 240px;
-            }
-            
-            .feature-card h4 {
-                font-size: 1.2rem;
-            }
-            
-            .feature-card p {
-                font-size: 1rem;
-            }
-            
-            .api-card {
-                padding: 1.5rem;
-                min-height: 220px;
-                margin-bottom: 0.8rem;
-            }
-            
-            /* Section headers */
-            .section-header {
-                margin: 2rem 0 1rem 0;
-            }
-            
-            .section-header h2 {
-                font-size: 1.6rem;
-            }
-            
-            .section-header p {
-                font-size: 1.1rem;
-            }
-        }
-        
-        /* Mobile Phones (max-width: 575px) */
-        @media screen and (max-width: 575px) {
-            .hero-section {
-                width: 95%;
-                padding: 1.5rem 0.8rem;
-                margin: 0.5rem auto;
-                border-radius: 15px;
-            }
-            
-            .main-title {
-                font-size: 1.8rem;
-            }
-            
-            .sub-title {
-                font-size: 0.9rem;
-                padding: 0 0.5rem;
-            }
-            
-            .features-container {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
-            
-            /* Guide cards - 1 column on mobile */
-            div[data-testid="column"]:has(.guide-card) {
-                flex: 0 0 100% !important;
-                max-width: 100% !important;
-                margin-bottom: 0.8rem;
-            }
-            
-            .guide-card {
-                padding: 1.5rem;
-                min-height: 240px;
-            }
-            
-            .guide-step-number {
-                font-size: 1.8rem;
-            }
-            
-            .guide-card h4 {
-                font-size: 1.2rem;
-            }
-            
-            .guide-card-content {
-                font-size: 1rem;
-            }
-            
-            .feature-card {
-                padding: 1.5rem;
-                min-height: 240px;
-            }
-            
-            .feature-card h4 {
-                font-size: 1.2rem;
-            }
-            
-            .feature-card p {
-                font-size: 1rem;
-            }
-            
-            .api-card {
-                padding: 1.5rem;
-                min-height: 220px;
-                margin-bottom: 0.8rem;
-            }
-            
-            .api-icon {
-                font-size: 1.8rem;
-            }
-            
-            .api-tag {
-                font-size: 0.8rem;
-                padding: 0.15rem 0.5rem;
-            }
-            
-            /* Section headers */
-            .section-header {
-                margin: 1.5rem 0 1rem 0;
-            }
-            
-            .section-header h2 {
-                font-size: 1.5rem;
-            }
-            
-            .section-header p {
-                font-size: 1rem;
-            }
-            
-            /* Quick links - stack vertically */
-            div[style*="text-align: center; margin: 2rem 0;"] a {
-                display: block;
-                margin: 0.5rem 0 !important;
-                padding: 0.5rem;
-                font-size: 0.9rem;
-            }
-        }
-        
-        /* Very Small Phones (max-width: 360px) */
-        @media screen and (max-width: 360px) {
-            .hero-section {
-                padding: 1.2rem 0.6rem;
-            }
-            
-            .main-title {
-                font-size: 1.5rem;
-            }
-            
-            .sub-title {
-                font-size: 0.85rem;
-            }
-            
-            .guide-card,
-            .feature-card,
-            .api-card {
-                padding: 1.2rem;
-                min-height: 220px;
-            }
-            
-            .api-tag {
-                font-size: 0.7rem;
-                padding: 0.1rem 0.4rem;
-            }
-        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -674,7 +262,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---------- API Showcase Section (3 columns with consistent sizing) ----------
+# ---------- API Showcase Section ----------
 st.markdown("""
 <div class="section-header">
     <h2>🛠️ Powered by Leading AI Providers</h2>
@@ -682,11 +270,9 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# First Row: OpenAI, Gemini, Groq (3 equal columns)
-col1, col2, col3 = st.columns(3)
 
-with col1:
-    st.markdown("""
+st.markdown("""
+<div class="api-cards-main-container">
     <div class="api-card">
         <div class="api-icon">🔷</div>
         <h4 style="color: #7df9ff; margin-bottom: 0.5rem;">OpenAI</h4>
@@ -695,10 +281,6 @@ with col1:
             <small style="color: #7df9ff;">Premium API</small>
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown("""
     <div class="api-card">
         <div class="api-icon">🌀</div>
         <h4 style="color: #4285f4; margin-bottom: 0.5rem;">Google Gemini</h4>
@@ -707,10 +289,6 @@ with col2:
             <small style="color: #4285f4;">Multimodal AI</small>
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
     <div class="api-card">
         <div class="api-icon">⚡</div>
         <h4 style="color: #00ff00; margin-bottom: 0.5rem;">Groq</h4>
@@ -719,14 +297,6 @@ with col3:
             <small style="color: #00ff00;">High Speed</small>
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-# Second Row: Anthropic and Ollama (centered, same size cards)
-st.markdown('<div style="margin-top: 1.5rem;"></div>', unsafe_allow_html=True)
-col4, col5 = st.columns(2)
-
-with col4:
-    st.markdown("""
     <div class="api-card">
         <div class="api-icon">✨</div>
         <h4 style="color: #ff6b6b; margin-bottom: 0.5rem;">Anthropic Claude</h4>
@@ -735,10 +305,6 @@ with col4:
             <small style="color: #ff6b6b;">Advanced Reasoning</small>
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-with col5:
-    st.markdown("""
     <div class="api-card">
         <div class="api-icon">🦙</div>
         <h4 style="color: #ffcc00; margin-bottom: 0.5rem;">Ollama Local</h4>
@@ -747,9 +313,10 @@ with col5:
             <small style="color: #ffcc00;">Private & Free</small>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+</div>
+""", unsafe_allow_html=True)
 
-# ---------- Quick Guide Section (HORIZONTAL CARDS) ----------
+# ---------- Quick Guide Section ----------
 st.markdown("""
 <div class="section-header">
     <h2>🚀 Quick Start Guide</h2>
@@ -757,11 +324,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Horizontal guide cards in a 5-column layout
-guide_col1, guide_col2, guide_col3, guide_col4, guide_col5 = st.columns(5)
-
-with guide_col1:
-    st.markdown("""
+st.markdown("""
+<div class="guide-cards-main-container">
     <div class="guide-card">
         <div class="guide-step-number">1️⃣</div>
         <h4>Choose a Chatbot Page</h4>
@@ -769,10 +333,6 @@ with guide_col1:
             Select from 6 chatbot types in sidebar.
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-with guide_col2:
-    st.markdown("""
     <div class="guide-card">
         <div class="guide-step-number">2️⃣</div>
         <h4>Select AI Provider</h4>
@@ -780,10 +340,6 @@ with guide_col2:
             Choose from 5+ providers in sidebar dropdown.
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-with guide_col3:
-    st.markdown("""
     <div class="guide-card">
         <div class="guide-step-number">3️⃣</div>
         <h4>Get Your API Key</h4>
@@ -791,10 +347,6 @@ with guide_col3:
             Generate key from your chosen provider.
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-with guide_col4:
-    st.markdown("""
     <div class="guide-card">
         <div class="guide-step-number">4️⃣</div>
         <h4>Test Connection</h4>
@@ -802,10 +354,6 @@ with guide_col4:
             Enter API key & verify connection.
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-with guide_col5:
-    st.markdown("""
     <div class="guide-card">
         <div class="guide-step-number">5️⃣</div>
         <h4>Start Chatting!</h4>
@@ -813,19 +361,20 @@ with guide_col5:
             Begin using the chatbot immediately.
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-# Link buttons below the guide cards
-st.markdown("""
-<div style="text-align: center; margin: 2rem 0;">
-    <a href="https://platform.openai.com/api-keys" target="_blank" style="color: #00ffff; text-decoration: none; margin: 0 1rem; font-size: 0.9rem;">🔑 OpenAI API Keys</a>
-    <a href="https://console.groq.com" target="_blank" style="color: #00ffff; text-decoration: none; margin: 0 1rem; font-size: 0.9rem;">⚡ Groq Cloud</a>
-    <a href="https://makersuite.google.com" target="_blank" style="color: #00ffff; text-decoration: none; margin: 0 1rem; font-size: 0.9rem;">🌀 Google AI Studio</a>
-    <a href="https://console.anthropic.com" target="_blank" style="color: #00ffff; text-decoration: none; margin: 0 1rem; font-size: 0.9rem;">🤖 Anthropic Console</a>
 </div>
 """, unsafe_allow_html=True)
 
-# ---------- Feature Cards (FIXED ALIGNMENT) ----------
+# Quick links container
+st.markdown("""
+<div class="quick-links-container">
+    <a href="https://platform.openai.com/api-keys" target="_blank" class="quick-link">🔑 OpenAI API Keys</a>
+    <a href="https://console.groq.com" target="_blank" class="quick-link">⚡ Groq Cloud</a>
+    <a href="https://makersuite.google.com" target="_blank" class="quick-link">🌀 Google AI Studio</a>
+    <a href="https://console.anthropic.com" target="_blank" class="quick-link">🤖 Anthropic Console</a>
+</div>
+""", unsafe_allow_html=True)
+
+# ---------- Feature Cards ----------
 st.markdown("""
 <div class="section-header">
     <h2>✨ Advanced Features</h2>
@@ -833,11 +382,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Feature Cards in 3 columns with consistent sizing
-feat_col1, feat_col2, feat_col3 = st.columns(3)
-
-with feat_col1:
-    st.markdown("""
+st.markdown("""
+<div class="feature-cards-main-container">
     <div class="feature-card">
         <h4>🤖 Basic Chatbot</h4>
         <p>Engage in interactive conversations with any LLM provider.</p>
@@ -849,9 +395,6 @@ with feat_col1:
             <span class="api-tag">Ollama</span>
         </div>
     </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
     <div class="feature-card">
         <h4>🌐 Internet-Enabled Chatbot</h4>
         <p>Access live web data with real-time search capabilities.</p>
@@ -861,10 +404,6 @@ with feat_col1:
             <span class="api-tag">Real-time</span>
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-with feat_col2:
-    st.markdown("""
     <div class="feature-card">
         <h4>📄 Document Intelligence</h4>
         <p>Chat with PDFs, Word docs, and text files using RAG.</p>
@@ -874,9 +413,6 @@ with feat_col2:
             <span class="api-tag">Vector DB</span>
         </div>
     </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
     <div class="feature-card">
         <h4>🗄️ SQL Database Chat</h4>
         <p>Query databases using natural language with SQL generation.</p>
@@ -887,10 +423,6 @@ with feat_col2:
             <span class="api-tag">MySQL</span>
         </div>
     </div>
-    """, unsafe_allow_html=True)
-
-with feat_col3:
-    st.markdown("""
     <div class="feature-card">
         <h4>🧠 Context-Aware AI</h4>
         <p>Memory-enabled conversations with persistent context.</p>
@@ -900,9 +432,6 @@ with feat_col3:
             <span class="api-tag">Conversation</span>
         </div>
     </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
     <div class="feature-card">
         <h4>🌍 Website Analyzer</h4>
         <p>Extract and analyze content from any website.</p>
@@ -912,7 +441,8 @@ with feat_col3:
             <span class="api-tag">Summarization</span>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+</div>
+""", unsafe_allow_html=True)
 
 # ---------- Footer ----------
 st.markdown("""
