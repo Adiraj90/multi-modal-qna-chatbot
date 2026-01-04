@@ -1,0 +1,110 @@
+# ==================== CORE FRAMEWORKS ====================
+streamlit
+langchain
+langchain-core
+langchain-community
+langchainhub
+python-dotenv
+pydantic
+
+# ==================== LLM PROVIDERS ====================
+openai
+langchain-openai
+
+# Google Gemini
+google-generativeai
+langchain-google-genai
+
+# Anthropic Claude
+anthropic
+langchain-anthropic
+
+# Cohere
+cohere
+
+# Groq
+langchain-groq
+
+# Ollama Local
+ollama
+
+# ==================== DOCUMENT PROCESSING ====================
+pypdf
+PyPDF2
+pdf2image
+pdfplumber
+python-docx
+openpyxl
+xlrd
+markdown
+
+# ==================== TEXT PROCESSING ====================
+unstructured
+beautifulsoup4
+lxml
+html5lib
+
+# ==================== WEB & INTERNET SEARCH ====================
+tavily-python
+requests
+httpx
+aiohttp
+urllib3
+
+# ==================== VECTOR DATABASES ====================
+chromadb
+faiss-cpu
+
+# ==================== EMBEDDINGS ====================
+fastembed
+sentence-transformers
+
+# ==================== SQL DATABASE ====================
+SQLAlchemy
+sqlalchemy-utils
+
+# ==================== UTILITIES ====================
+python-multipart
+python-magic
+filetype
+tiktoken
+transformers
+pandas
+numpy
+pyarrow
+python-decouple
+toml
+pyyaml
+
+# ==================== UI ENHANCEMENTS ====================
+streamlit-option-menu
+streamlit-chat
+streamlit-tags
+streamlit-aggrid
+streamlit-lottie
+plotly
+pydeck
+pillow
+emoji
+
+# ==================== MACHINE LEARNING ====================
+scikit-learn
+scipy
+joblib
+
+# ==================== SECURITY ====================
+cryptography
+bcrypt
+passlib
+
+# ==================== SYSTEM ====================
+psutil
+py-cpuinfo
+
+# ==================== DEVELOPMENT ====================
+pytest
+pytest-asyncio
+black
+
+pypdf
+docarray[full]

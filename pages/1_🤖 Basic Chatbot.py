@@ -1,0 +1,632 @@
+import streamlit as st
+import sys
+import os
+from typing import Any, Dict
+import traceback
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from streaming import StreamHandler
+from llm_providers import configure_llm_sidebar, get_llm_from_config, invoke_llm
+from pages_shared import llm_invoke, extract_text
+
+st.set_page_config(
+    page_title="Basic Chatbot",
+    page_icon="🤖",
+    layout="centered",
+    menu_items={
+        'Get Help': None,
+        'Report a bug': None,
+        'About': None
+    }
+)
+
+
+# ---------- Custom Styling ----------
+st.markdown("""
+    <style>
+        /* 🌌 Modern Dark Theme with Custom Colors */
+        :root {
+            --primary-100: #1F3A5F;
+            --primary-200: #4d648d;
+            --primary-300: #acc2ef;
+            --accent-100: #3D5A80;
+            --accent-200: #cee8ff;
+            --text-100: #FFFFFF;
+            --text-200: #e0e0e0;
+            --bg-100: #0F1C2E;
+            --bg-200: #1f2b3e;
+            --bg-300: #374357;
+        }
+
+        .stApp {
+            background: linear-gradient(135deg, var(--bg-100) 0%, var(--bg-200) 50%, var(--primary-100) 100%) !important;
+            color: var(--text-100);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            height: 100vh !important;
+            overflow: hidden !important;
+        }
+            
+        MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+
+        header {
+            background: transparent !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: none !important;
+            height: 4rem !important;
+            display: none;
+        }
+        
+        section[data-testid="stSidebar"] {
+            background: linear-gradient(180deg, var(--bg-200) 0%, var(--bg-100) 100%) !important;
+            border-right: 1px solid var(--bg-300) !important;
+        }
+        
+        .error-message {
+            background: rgba(255, 107, 107, 0.15) !important;
+            border: 1px solid rgba(255, 107, 107, 0.3) !important;
+            border-radius: 12px !important;
+            padding: 1rem !important;
+            margin: 1rem 0 !important;
+            color: #ff6b6b !important;
+            backdrop-filter: blur(10px) !important;
+        }
+            
+        /* 🚀 Provider status */
+        .provider-status {
+            padding: 0.8rem 1.2rem !important;
+            border-radius: 12px !important;
+            margin: 1rem 0 !important;
+            font-weight: bold !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        .provider-success {
+            background: rgba(0, 255, 0, 0.15) !important;
+            border: 1px solid rgba(0, 255, 0, 0.3) !important;
+            color: #00ff00 !important;
+        }
+        
+        .provider-error {
+            background: rgba(255, 107, 107, 0.15) !important;
+            border: 1px solid rgba(255, 107, 107, 0.3) !important;
+            color: #ff6b6b !important;
+        }
+        
+        /* 🎨 Button styling */
+        .stButton > button {
+            background: linear-gradient(135deg, var(--accent-200) 0%, var(--primary-300) 50%, var(--accent-100) 100%) !important;
+            color: #000000 !important;
+            border: none !important;
+            border-radius: 12px !important;
+            padding: 0.8rem 1.5rem !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .stButton > button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px var(--accent-100) !important;
+        }
+        
+        /* ⚡ Expander styling */
+        .streamlit-expanderHeader {
+            background: rgba(61, 90, 128, 0.3) !important;
+            border: 1px solid var(--accent-100) !important;
+            border-radius: 10px !important;
+            color: var(--accent-200) !important;
+            font-weight: 600 !important;
+        }
+        
+        .streamlit-expanderContent {
+            background: rgba(31, 43, 62, 0.3) !important;
+            border: 1px solid rgba(31, 43, 62, 0.4) !important;
+            border-radius: 0 0 10px 10px !important;
+            color: var(--text-200) !important;
+        }
+        
+        /* 📱 Chat message styling - FIXED for overflow */
+        .stChatMessage {
+            background: rgba(31, 43, 62, 0.3) !important;
+            border-radius: 15px !important;
+            padding: 1rem !important;
+            margin: 0.5rem 0 !important;
+            border: 1px solid rgba(31, 43, 62, 0.4) !important;
+            overflow-x: auto !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        /* ✨ Warning/Info/Success colors */
+        .stAlert {
+            border-radius: 12px !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        .stTextInput > div > div > input {
+            background: rgba(31, 43, 62, 0.3) !important;
+            border: 1px solid var(--bg-300) !important;
+            border-radius: 12px !important;
+            color: var(--text-100) !important;
+        }
+        
+        .stTextInput > div > div > input:focus {
+            border-color: var(--accent-200) !important;
+            box-shadow: 0 0 0 2px rgba(61, 90, 128, 0.3) !important;
+        }
+        
+        .stSpinner > div {
+            border-color: var(--accent-200) transparent transparent transparent !important;
+        }
+        
+        .stColumn {
+            background: rgba(31, 43, 62, 0.3) !important;
+            border: 1px solid var(--bg-300) !important;
+            border-radius: 15px !important;
+            padding: 1.5rem !important;
+            margin: 0.5rem !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        
+        .stBottom .st-emotion-cache-uomg8d {
+            background: rgba(31, 43, 62, 0.95) !important;
+            box-shadow:
+              inset 30px 0 30px rgba(0, 0, 0, 0.12),
+              inset -30px 0 30px rgba(0, 0, 0, 0.12);
+            border-radius: 12px !important;
+            width: 70% !important;
+            min-width: 70% !important;
+            margin: auto !important;
+            bottom: 16px;
+        }
+            
+        @media screen and (max-width: 360px),
+               screen and (max-width: 767px),
+               screen and (min-width: 768px) and (max-width: 991px) {
+            
+            div[data-testid="stChatMessageAvatarAssistant"] {
+              display: none !important;
+            }
+            
+            div[data-testid="stChatMessageContent"] {
+              margin-left: 0 !important;
+              padding-left: 0 !important;
+            }
+        }
+            
+        @media screen and (max-width: 767px) {
+            .stBottom .st-emotion-cache-uomg8d {
+                background: transparent !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                width: 100% !important;
+                min-width: 100% !important;
+                left: 0 !important;
+                margin: 0 !important;
+                bottom: 0 !important;
+                padding: 0.5rem !important;
+                transform: none !important;
+            }
+            .st-emotion-cache-6shykm {
+                padding-bottom: 1.5rem !important;
+            }
+            .st-emotion-cache-1cei9z1 { 
+                padding-top: 3rem !important;
+            }
+            
+        }
+        
+        @media screen and (max-width: 360px) {
+            .stBottom .st-emotion-cache-uomg8d {
+                padding: 0.3rem !important;
+                font-size: 0.9rem !important;
+            }
+        }
+           
+    </style>
+""", unsafe_allow_html=True)
+
+
+# ---------- INITIALIZE SESSION STATE ----------
+def initialize_session():
+    """Initialize session state variables"""
+    if "messages" not in st.session_state:
+        st.session_state.messages = [
+            {"role": "assistant", "content": "Hey! 🤖 Ready for some AI magic? Ask me anything! ✨"}
+        ]
+    
+    if "conversation_history" not in st.session_state:
+        st.session_state.conversation_history = []
+    
+    if "current_provider" not in st.session_state:
+        st.session_state.current_provider = None
+    
+    if "llm_instance" not in st.session_state:
+        st.session_state.llm_instance = None
+    
+    if "last_error" not in st.session_state:
+        st.session_state.last_error = None
+
+# ---------- SIDEBAR CONFIGURATION ----------
+def setup_sidebar():
+    """Setup sidebar configuration"""
+    with st.sidebar:
+        st.markdown("""
+        <div style="text-align: center; padding: 0.5rem 0; margin-bottom: 0.5rem;">
+            <h3 style="color: var(--accent-200); margin: 0; font-size: 1.6rem;">🔮 AI ChatBot</h3>
+            <p style="color: var(--primary-300); font-size: 0.9rem; margin: 0.3rem 0 0 0;">Basic Chatbot</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Clear previous error
+        if st.session_state.get("last_error"):
+            st.session_state.last_error = None
+        
+        # Get LLM configuration
+        try:
+            config = configure_llm_sidebar(show_test_button=True)
+            
+            if config:
+                current_provider = config.get("provider")
+                api_key = config.get("api_key", "")
+                
+                # Check if provider changed
+                if st.session_state.get("current_provider") != current_provider:
+                    st.session_state.current_provider = current_provider
+                    # Clear messages on provider change
+                    if st.session_state.messages and len(st.session_state.messages) > 1:
+                        st.info(f"Provider changed to {current_provider}. Chat history cleared.")
+                        st.session_state.messages = [
+                            {"role": "assistant", "content": f"Switched to {current_provider}. How can I help you? 😊"}
+                        ]
+                
+                # Create LLM instance
+                if api_key or current_provider == "Ollama (Local)":
+                    with st.spinner(f"Configuring {current_provider}..."):
+                        llm = get_llm_from_config(config)
+                        
+                        if llm:
+                            st.session_state.llm_instance = llm
+                            st.success(f"✅ {current_provider} configured successfully")
+                            
+                            # Store provider info for error messages
+                            st.session_state.current_provider = current_provider
+                            st.session_state.llm_config = config
+                        else:
+                            st.error(f"❌ Failed to initialize {current_provider}")
+                            st.session_state.llm_instance = None
+                
+        except Exception as e:
+            st.error(f"❌ Configuration error: {str(e)[:100]}")
+            st.session_state.llm_instance = None
+        
+        st.markdown("---")
+        
+        # Troubleshooting expander
+        with st.expander("🔧 Troubleshooting", expanded=False):
+            st.markdown("""
+            **Common Issues:**
+            
+            1. **API Key Invalid** → Check key is correct
+            2. **Quota Exceeded** → Check account limits
+            3. **Network Error** → Check internet connection
+            4. **Package Missing** → Install required packages
+            
+            **Quick Fixes:**
+            - Try Ollama (Local) for free, no API needed
+            - Get free Groq key: https://console.groq.com/keys
+            - Restart the app
+            """)
+        
+        # Clear chat button
+        if st.button("🗑️ Clear Chat History", use_container_width=True, type="secondary"):
+            st.session_state.messages = [
+                {"role": "assistant", "content": "Chat cleared! How can I help you? 😊"}
+            ]
+            st.session_state.conversation_history = []
+            st.session_state.last_error = None
+            st.rerun()
+        
+        return st.session_state.get("llm_instance")
+
+# ---------- DISPLAY ERROR HELP ----------
+def display_error_help(error_message: str, provider: str = None):
+    """Display helpful error information"""
+    if not error_message:
+        return
+    
+    # Check for specific error types
+    error_lower = error_message.lower()
+    
+    with st.expander("🛠️ Error Help", expanded=True):
+        if "api key" in error_lower:
+            st.markdown("""
+            **Invalid API Key Fix:**
+            1. Go to provider website to get key
+            2. Copy key carefully (no spaces)
+            3. Paste in sidebar
+            4. Click outside the field to save
+            """)
+            
+            if provider == "Groq":
+                st.markdown("[🔑 Get Groq API Key](https://console.groq.com/keys)")
+            elif provider == "OpenAI":
+                st.markdown("[🔑 Get OpenAI API Key](https://platform.openai.com/api-keys)")
+        
+        elif "quota" in error_lower:
+            st.markdown("""
+            **Quota Exceeded Fix:**
+            1. Check account billing/usage
+            2. Wait for quota reset (usually monthly)
+            3. Upgrade plan if needed
+            4. Try different provider
+            """)
+            
+            st.info("💡 Try Ollama (Local) - no API limits!")
+        
+        elif "connection" in error_lower or "network" in error_lower:
+            st.markdown("""
+            **Network Error Fix:**
+            1. Check internet connection
+            2. Try reloading page
+            3. Check if provider is down
+            4. Try different network
+            """)
+        
+        elif "rate limit" in error_lower:
+            st.markdown("""
+            **Rate Limit Fix:**
+            1. Wait 1 minute and try again
+            2. Reduce request frequency
+            3. Upgrade to higher tier
+            4. Try different provider
+            """)
+        
+        else:
+            st.markdown("""
+            **General Fix:**
+            1. Check API key is valid
+            2. Verify package is installed
+            3. Restart the application
+            4. Try different provider/model
+            """)
+        
+        # Provider-specific troubleshooting
+        if provider:
+            from pages_shared import get_provider_troubleshooting
+            troubleshooting = get_provider_troubleshooting(provider)
+            st.markdown(troubleshooting)
+
+# ---------- BASIC CHATBOT CLASS ----------
+class BasicChatbot:
+    def __init__(self):
+        self.llm = st.session_state.get("llm_instance")
+        self.provider = st.session_state.get("current_provider", "Unknown")
+        
+        if not self.llm:
+            raise ValueError("LLM not configured. Please set up provider in sidebar.")
+    
+    def build_prompt(self, user_input: str) -> str:
+        """Build prompt with conversation history"""
+        history = st.session_state.get("conversation_history", [])
+        
+        # Keep last 6 exchanges for context
+        context_exchanges = history[-6:] if len(history) > 6 else history
+        
+        # Build context string
+        context_lines = []
+        for exchange in context_exchanges:
+            role = "Human" if exchange["role"] == "user" else "Assistant"
+            context_lines.append(f"{role}: {exchange['content']}")
+        
+        context_str = "\n".join(context_lines) if context_lines else "No previous conversation."
+        
+        prompt = f"""You are a helpful AI assistant. Continue the conversation naturally.
+
+Previous conversation:
+{context_str}
+
+Human: {user_input}
+Assistant: """
+        
+        return prompt
+    
+    def get_response(self, user_input: str) -> str:
+        """Get response from LLM with comprehensive error handling"""
+        if not self.llm:
+            return "❌ LLM not configured. Please check sidebar settings."
+        
+        try:
+            prompt = self.build_prompt(user_input)
+            
+            # Clear previous error
+            st.session_state.last_error = None
+            
+            # Get response using invoke_llm from llm_providers
+            response = invoke_llm(self.llm, prompt)
+            
+            # Check if response is an error
+            if response.startswith("❌") or response.startswith("⚠️"):
+                st.session_state.last_error = response
+                return response
+            
+            return response
+            
+        except Exception as e:
+            error_msg = f"❌ Unexpected error: {str(e)[:150]}"
+            st.session_state.last_error = error_msg
+            return error_msg
+
+# ---------- MAIN APP ----------
+def main():
+    initialize_session()
+    llm = setup_sidebar()
+    
+    # Use container to control layout better
+    container = st.container()
+    
+    with container:
+        # Add extra margin at the top of the hero section
+        st.markdown('<div style="margin-top: 1.5rem;"></div>', unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div style="text-align: center; margin-bottom: 1rem;">
+            <h1 style="font-size: 3rem; font-weight: 900; background: linear-gradient(90deg, #7df9ff 0%, #9370db 50%, #00ffff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">🤖 Basic Chatbot</h1>
+            <p style="color: #b0b0ff; font-size: 1.2rem; font-weight: 300;">Chat with AI using multiple providers</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Display current provider status
+    current_provider = st.session_state.get("current_provider")
+    if current_provider:
+        if st.session_state.get("llm_instance"):
+            pass
+        else:
+            st.markdown(f'<div class="provider-status provider-error">❌ {current_provider} Not Configured</div>', unsafe_allow_html=True)
+    
+    if st.session_state.get("last_error"):
+        st.markdown(f'<div class="error-message">{st.session_state.last_error}</div>', unsafe_allow_html=True)
+        display_error_help(st.session_state.last_error, current_provider)
+    
+    # Display chat messages
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.write(message["content"])
+    
+    # Chat input
+    if st.session_state.get("llm_instance"):
+        user_input = st.chat_input("Type your message here...", key="chat_input")
+        
+        if user_input:
+            # Add user message
+            st.session_state.messages.append({"role": "user", "content": user_input})
+            st.session_state.conversation_history.append({"role": "user", "content": user_input})
+            
+            # Display user message
+            with st.chat_message("user"):
+                st.write(user_input)
+            
+            # Get AI response
+            with st.chat_message("assistant"):
+                with st.spinner("Thinking..."):
+                    try:
+                        chatbot = BasicChatbot()
+                        response = chatbot.get_response(user_input)
+                        
+                        # Display response
+                        st.write(response)
+                        
+                        # Add to history if not error
+                        if not response.startswith("❌") and not response.startswith("⚠️"):
+                            st.session_state.messages.append({"role": "assistant", "content": response})
+                            st.session_state.conversation_history.append({"role": "assistant", "content": response})
+                        
+                    except ValueError as e:
+                        error_msg = str(e)
+                        st.error(error_msg)
+                        st.session_state.last_error = error_msg
+                    except Exception as e:
+                        error_msg = f"❌ Unexpected error: {str(e)[:100]}"
+                        st.error(error_msg)
+                        st.session_state.last_error = error_msg
+            
+            # Rerun to update display
+            st.rerun()
+    
+    else:
+        # Provider not configured - show help
+        st.warning("Please configure an AI provider in the sidebar to start chatting.")
+        
+        # Add some space before provider cards
+        st.markdown('<div style="margin-top: 1.5rem;"></div>', unsafe_allow_html=True)
+        
+        # Show provider options with responsive columns
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown("""
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 1.5rem; height: 100%; backdrop-filter: blur(10px);">
+                <h4 style="color: #00ff00; margin-bottom: 0.8rem;">⚡ Groq</h4>
+                <p style="color: #d0d0ff; margin-bottom: 1rem;"><strong>Free tier available</strong></p>
+                <ul style="color: #b0b0ff; padding-left: 1.2rem;">
+                    <li>Fast responses</li>
+                    <li>30 requests/minute</li>
+                    <li>10k tokens/minute</li>
+                </ul>
+                <p style="margin-top: 1rem;"><a href="https://console.groq.com/keys" target="_blank">🔑 Get Free Key</a></p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            st.markdown("""
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 1.5rem; height: 100%; backdrop-filter: blur(10px);">
+                <h4 style="color: #ffcc00; margin-bottom: 0.8rem;">🦙 Ollama</h4>
+                <p style="color: #d0d0ff; margin-bottom: 1rem;"><strong>Completely free</strong></p>
+                <ul style="color: #b0b0ff; padding-left: 1.2rem;">
+                    <li>Run locally</li>
+                    <li>No API keys</li>
+                    <li>Private & secure</li>
+                </ul>
+                <p style="margin-top: 1rem;"><a href="https://ollama.ai" target="_blank">📥 Install Ollama</a></p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col3:
+            st.markdown("""
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 1.5rem; height: 100%; backdrop-filter: blur(10px);">
+                <h4 style="color: #7df9ff; margin-bottom: 0.8rem;">🔑 OpenAI</h4>
+                <p style="color: #d0d0ff; margin-bottom: 1rem;"><strong>Most popular</strong></p>
+                <ul style="color: #b0b0ff; padding-left: 1.2rem;">
+                    <li>GPT-3.5/4 models</li>
+                    <li>Reliable</li>
+                    <li>Paid service</li>
+                </ul>
+                <p style="margin-top: 1rem;"><a href="https://platform.openai.com/api-keys" target="_blank">🔑 Get API Key</a></p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        # Add some space after provider cards
+        st.markdown('<div style="margin-top: 1.5rem;"></div>', unsafe_allow_html=True)
+        
+        # Installation instructions
+        with st.expander("📦 Installation Help", expanded=True):
+            st.markdown("""
+            **Install missing packages:**
+            ```bash
+            # For Groq
+            pip install langchain-groq
+            
+            # For OpenAI  
+            pip install langchain-openai
+            
+            # For Ollama
+            pip install langchain-community ollama
+            
+            # For all providers
+            pip install -r requirements.txt
+            ```
+            """)
+
+# ---------- RUN APP ----------
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        st.error(f"🚨 Application error: {str(e)[:200]}")
+        
+        # Show detailed error for debugging
+        with st.expander("🔍 Debug Details", expanded=False):
+            st.code(traceback.format_exc())
+        
+        st.info("""
+        **Quick Recovery:**
+        1. **Refresh the page** (F5 or Ctrl+R)
+        2. **Check console** for detailed errors
+        3. **Verify installations**: Run `pip list` to check packages
+        4. **Try Ollama** as fallback provider
+        
+        **Still stuck?**
+        - Check if ports are available
+        - Try different browser
+        - Clear browser cache
+        """)
