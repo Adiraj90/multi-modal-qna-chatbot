@@ -43,3 +43,5 @@ logs/
 # Ollama models (optional)
 .ollama/
 devcontainer.json
+
+!assets/db/chinook.db
