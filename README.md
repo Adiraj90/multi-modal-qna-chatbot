@@ -35,9 +35,6 @@ The application supports real-world use cases like normal AI chat, context-aware
 ```bash
 multi-modal-qna-chatbot/
 |
-├── __pycache__
-├── .devcontainer
-│   └── devcontainer.json
 ├── .streamlit
 │   ├── config.toml
 │   └── secrets.toml
